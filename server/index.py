@@ -30,9 +30,8 @@ def init_db():
 
 def insert_db(sensor, value):
     db = get_db()
-    query = 'INSERT INTO measurement (sensor, value)'\
-        ' VALUES ("' + sensor + '", ' + str(value) + ')'
-    db.cursor().execute(query)
+    db.cursor().execute('INSERT INTO measurement (sensor, value)'
+                        'VALUES (?,?)', (sensor, str(value)))
     db.commit()
     id_inserted = db.cursor().lastrowid
     db.cursor().close()
